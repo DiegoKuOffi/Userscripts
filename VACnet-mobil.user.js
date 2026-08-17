@@ -591,21 +591,29 @@
         display: none !important;
       }
 
-      /* === 5. VerdictsContainer === */
-      html.${ROOT_CLASS} .verdict-column,
+      /* === 5. VerdictsContainer (Flujo despejado y separación) === */
+      html.${ROOT_CLASS} .verdict-column {
+        margin-top: 14px !important;
+        padding-top: 4px !important;
+        z-index: 1000 !important;
+        position: relative !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+      }
+
       html.${ROOT_CLASS} .verdicts-container {
         width: 100% !important;
         max-width: 100% !important;
         min-height: auto !important;
         margin-top: 0 !important;
-        padding: 10px !important;
+        padding: 8px 10px !important;
         box-sizing: border-box !important;
         float: none !important;
-        z-index: auto !important;
       }
 
       html.${ROOT_CLASS} .verdict-block {
-        margin: 0 8px !important;
+        margin: 0 4px 14px 4px !important;
       }
 
       html.${ROOT_CLASS} .verdict-desc,
@@ -617,13 +625,22 @@
         text-align: center !important;
       }
 
+      html.${ROOT_CLASS} .verdictbuttons {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+      }
+
       html.${ROOT_CLASS} .verdictbutton {
-        flex: 1 1 0 !important;
-        min-width: 0 !important;
-        max-width: 33.33% !important;
+        flex: 1 1 45% !important;
+        min-width: 130px !important;
         margin: 0 !important;
-        padding: 2px !important;
-        box-sizing: border-box !important;
+      }
+
+      html.${ROOT_CLASS} .verdictbutton.negative {
+        flex: 1 1 100% !important;
       }
 
       html.${ROOT_CLASS} .verdictbutton label,
