@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         VACnet Mobile
 // @namespace    https://www.counter-strike.net/vacnet
-// @version      2.5.1
+// @version      2.5.2
 // @description  Layout responsivo para VACnet: header compacto, video sticky, controles optimizados para 360x800, instrucciones colapsables (React-safe), veredictos compactos, notificaciones inmediatas.
 // @author       DiegoKu
 // @match        https://www.counter-strike.net/vacnet*
@@ -351,25 +351,29 @@
         flex: 0 0 auto !important;
       }
 
-      /* === 4. CONTROLES DEL VIDEO (vjs-control-bar optimizada y responsive) === */
+      /* === 4. CONTROLES DEL VIDEO (Debajo del video y alineados al pixel) === */
       html.${ROOT_CLASS} .videocontainer .video-js .vjs-control-bar {
-        position: absolute !important;
-        bottom: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
+        position: relative !important;
+        bottom: auto !important;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
         width: 100% !important;
-        height: 42px !important;
-        background: linear-gradient(0deg, rgba(10, 10, 11, 0.95) 0%, rgba(10, 10, 11, 0.6) 70%, transparent 100%) !important;
+        height: 44px !important;
+        min-height: 44px !important;
+        background: #141416 !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
         display: flex !important;
         flex-direction: row !important;
         flex-wrap: nowrap !important;
         align-items: center !important;
         justify-content: space-between !important;
-        padding: 0 4px !important;
+        padding: 0 8px !important;
         box-sizing: border-box !important;
         z-index: 10 !important;
         opacity: 1 !important;
         visibility: visible !important;
+        flex: 0 0 44px !important;
       }
 
       /* 1. Play / Pause */
@@ -377,8 +381,8 @@
         width: 36px !important;
         min-width: 36px !important;
         max-width: 36px !important;
-        height: 42px !important;
-        font-size: 15px !important;
+        height: 44px !important;
+        font-size: 16px !important;
         flex: 0 0 36px !important;
         display: inline-flex !important;
         align-items: center !important;
@@ -388,23 +392,23 @@
         margin: 0 !important;
       }
 
-      /* 2. Volumen / Mute (Solo botón toggle para móvil) */
+      /* 2. Botón Mute / Volumen */
       html.${ROOT_CLASS} .videocontainer .video-js .vjs-volume-panel {
         width: 34px !important;
         min-width: 34px !important;
         max-width: 34px !important;
-        height: 42px !important;
+        height: 44px !important;
         flex: 0 0 34px !important;
         display: inline-flex !important;
         align-items: center !important;
         justify-content: center !important;
-        margin: 0 !important;
+        margin: 0 2px 0 0 !important;
         padding: 0 !important;
       }
       html.${ROOT_CLASS} .videocontainer .video-js .vjs-mute-control {
         width: 100% !important;
         height: 100% !important;
-        font-size: 15px !important;
+        font-size: 16px !important;
         display: inline-flex !important;
         align-items: center !important;
         justify-content: center !important;
@@ -412,10 +416,10 @@
         margin: 0 !important;
       }
       html.${ROOT_CLASS} .videocontainer .video-js .vjs-volume-control {
-        display: none !important; /* Oculta la barra expandible que desborda en móvil */
+        display: none !important;
       }
 
-      /* 3. Tiempos (Actual / Total) */
+      /* 3. Indicador de Tiempo (0:00 / 0:00) */
       html.${ROOT_CLASS} .videocontainer .video-js .vjs-time-control,
       html.${ROOT_CLASS} .videocontainer .video-js .vjs-current-time,
       html.${ROOT_CLASS} .videocontainer .video-js .vjs-duration,
@@ -423,9 +427,9 @@
         display: inline-flex !important;
         align-items: center !important;
         justify-content: center !important;
-        height: 42px !important;
-        line-height: 42px !important;
-        font-size: 11px !important;
+        height: 44px !important;
+        line-height: 44px !important;
+        font-size: 11.5px !important;
         font-family: monospace, sans-serif !important;
         color: #e0e0e0 !important;
         padding: 0 1px !important;
@@ -435,73 +439,122 @@
         margin: 0 !important;
       }
       html.${ROOT_CLASS} .videocontainer .video-js .vjs-time-divider {
-        padding: 0 2px !important;
-        min-width: 6px !important;
+        padding: 0 3px !important;
       }
 
-      /* 4. Barra de Progreso / Timeline */
+      /* 4. Barra de Progreso y Bolilla Centrada */
       html.${ROOT_CLASS} .videocontainer .video-js .vjs-progress-control {
         flex: 1 1 auto !important;
         display: flex !important;
         align-items: center !important;
-        height: 42px !important;
-        min-width: 40px !important;
-        margin: 0 6px !important;
+        height: 44px !important;
+        min-width: 50px !important;
+        margin: 0 10px 0 8px !important;
         padding: 0 !important;
         touch-action: none !important;
       }
       html.${ROOT_CLASS} .videocontainer .video-js .vjs-progress-holder {
-        height: 4px !important;
-        border-radius: 2px !important;
+        height: 6px !important;
+        border-radius: 3px !important;
         margin: 0 !important;
         background-color: rgba(255, 255, 255, 0.25) !important;
+        position: relative !important;
+        display: flex !important;
+        align-items: center !important;
+      }
+      html.${ROOT_CLASS} .videocontainer .video-js .vjs-load-progress {
+        height: 100% !important;
+        border-radius: 3px !important;
       }
       html.${ROOT_CLASS} .videocontainer .video-js .vjs-play-progress {
+        height: 100% !important;
         background-color: #6ea31d !important;
-        border-radius: 2px !important;
+        border-radius: 3px !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
       }
+      /* Circulo blanco exactamente centrado verticalmente sobre la linea verde */
       html.${ROOT_CLASS} .videocontainer .video-js .vjs-play-progress::before {
-        font-size: 10px !important;
-        top: -3px !important;
-        color: #fff !important;
+        content: "" !important;
+        width: 12px !important;
+        height: 12px !important;
+        background-color: #ffffff !important;
+        border-radius: 50% !important;
+        position: absolute !important;
+        right: -6px !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.8) !important;
+        display: block !important;
+        font-size: 0 !important;
+        line-height: 0 !important;
       }
 
-      /* 5. Velocidad de Reproducción */
+      /* 5. Botón de Velocidad (1x) Centrado Exacto Vertical y Horizontal */
       html.${ROOT_CLASS} .videocontainer .video-js .vjs-playback-rate {
         width: 36px !important;
         min-width: 36px !important;
         max-width: 36px !important;
-        height: 42px !important;
+        height: 44px !important;
         flex: 0 0 36px !important;
         display: inline-flex !important;
         align-items: center !important;
         justify-content: center !important;
         position: relative !important;
+        margin: 0 4px 0 2px !important;
+        padding: 0 !important;
+        cursor: pointer !important;
+      }
+
+      html.${ROOT_CLASS} .videocontainer .video-js .vjs-playback-rate .vjs-playback-rate-value {
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 100% !important;
+        height: auto !important;
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        font-family: Arial, Helvetica, sans-serif !important;
+        line-height: 1 !important;
+        color: #ffffff !important;
+        text-align: center !important;
         margin: 0 !important;
         padding: 0 !important;
+        pointer-events: none !important;
       }
-      html.${ROOT_CLASS} .videocontainer .video-js .vjs-playback-rate .vjs-playback-rate-value {
-        font-size: 12px !important;
-        font-weight: 700 !important;
-        line-height: 42px !important;
-        color: #ffffff !important;
-        position: static !important;
+
+      html.${ROOT_CLASS} .videocontainer .video-js .vjs-playback-rate button.vjs-playback-rate {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        opacity: 0 !important;
+        cursor: pointer !important;
+        z-index: 2 !important;
       }
+
       html.${ROOT_CLASS} .videocontainer .video-js .vjs-playback-rate .vjs-menu {
-        bottom: 42px !important;
+        bottom: 44px !important;
         left: 50% !important;
         transform: translateX(-50%) !important;
-        width: 55px !important;
+        width: 60px !important;
         margin-bottom: 0 !important;
+        z-index: 20 !important;
       }
+
       html.${ROOT_CLASS} .videocontainer .video-js .vjs-playback-rate .vjs-menu-content {
-        background-color: rgba(20, 20, 22, 0.95) !important;
+        background-color: rgba(20, 20, 22, 0.98) !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
         border-radius: 6px !important;
         padding: 4px 0 !important;
       }
+
       html.${ROOT_CLASS} .videocontainer .video-js .vjs-playback-rate .vjs-menu-item {
-        font-size: 11px !important;
-        padding: 4px 0 !important;
+        font-size: 11.5px !important;
+        padding: 6px 0 !important;
         line-height: 1.2 !important;
       }
 
@@ -510,8 +563,8 @@
         width: 36px !important;
         min-width: 36px !important;
         max-width: 36px !important;
-        height: 42px !important;
-        font-size: 14px !important;
+        height: 44px !important;
+        font-size: 15px !important;
         flex: 0 0 36px !important;
         display: inline-flex !important;
         align-items: center !important;
@@ -521,7 +574,7 @@
         margin: 0 !important;
       }
 
-      /* 7. Ocultar botones y elementos redundantes/no deseados */
+      /* 7. Ocultar botones residuales */
       html.${ROOT_CLASS} .videocontainer .video-js .vjs-remaining-time,
       html.${ROOT_CLASS} .videocontainer .video-js .vjs-picture-in-picture-control,
       html.${ROOT_CLASS} .videocontainer .video-js .vjs-subs-caps-button,
@@ -536,41 +589,6 @@
       html.${ROOT_CLASS} .videocontainer .video-js .vjs-skip-backward-undefined,
       html.${ROOT_CLASS} .videocontainer .video-js .vjs-skip-forward-undefined {
         display: none !important;
-      }
-
-      /* Ajustes para pantallas estrechas (<= 360px) */
-      @media ${SMALL_MQ} {
-        html.${ROOT_CLASS} .videocontainer .video-js .vjs-control-bar {
-          height: 38px !important;
-          padding: 0 2px !important;
-        }
-        html.${ROOT_CLASS} .videocontainer .video-js .vjs-play-control,
-        html.${ROOT_CLASS} .videocontainer .video-js .vjs-volume-panel,
-        html.${ROOT_CLASS} .videocontainer .video-js .vjs-playback-rate,
-        html.${ROOT_CLASS} .videocontainer .video-js .vjs-fullscreen-control {
-          width: 32px !important;
-          min-width: 32px !important;
-          max-width: 32px !important;
-          height: 38px !important;
-          flex: 0 0 32px !important;
-          font-size: 13px !important;
-        }
-        html.${ROOT_CLASS} .videocontainer .video-js .vjs-playback-rate .vjs-playback-rate-value {
-          font-size: 11px !important;
-          line-height: 38px !important;
-        }
-        html.${ROOT_CLASS} .videocontainer .video-js .vjs-time-control,
-        html.${ROOT_CLASS} .videocontainer .video-js .vjs-current-time,
-        html.${ROOT_CLASS} .videocontainer .video-js .vjs-duration,
-        html.${ROOT_CLASS} .videocontainer .video-js .vjs-time-divider {
-          height: 38px !important;
-          line-height: 38px !important;
-          font-size: 10px !important;
-        }
-        html.${ROOT_CLASS} .videocontainer .video-js .vjs-progress-control {
-          margin: 0 4px !important;
-          height: 38px !important;
-        }
       }
 
       /* === 5. VerdictsContainer === */
